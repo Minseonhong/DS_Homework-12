@@ -131,20 +131,20 @@ int initialize(int** a)
 	return 0;
 }
 
-int freeArray(int *a)
+int freeArray(int *a) // 메모리 해제
 {
 	if(a != NULL)
 		free(a);
 	return 0;
 }
 
-void printArray(int *a)
+void printArray(int *a) // 배열 출력
 {
-	if (a == NULL) {
+	if (a == NULL) { // 배열이 비어있으면, 프린트 할 수 없는 문구 출력
 		printf("nothing to print.\n");
 		return;
 	}
-	for(int i = 0; i < MAX_ARRAY_SIZE; i++)
+	for(int i = 0; i < MAX_ARRAY_SIZE; i++) // i가 MAX_ARRAY_SIZE 값이 되기 전까지 반복문 실행하여 배열 출력
 		printf("a[%02d] ", i);
 	printf("\n");
 	for(int i = 0; i < MAX_ARRAY_SIZE; i++)
@@ -153,22 +153,22 @@ void printArray(int *a)
 }
 
 
-int selectionSort(int *a)
+int selectionSort(int *a) // 선택정렬
 {
-	int min;
-	int minindex;
+	int min; // 최소값을 저장할 변수
+	int minindex; // 최소값 인덱스
 	int i, j;
 
 	printf("Selection Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); // 정렬 하기 전에 프린트
 
 	for (i = 0; i < MAX_ARRAY_SIZE; i++)
-	{
+	{ // 첫번째 원소부터 교체 시작
 		minindex = i;
 		min = a[i];
-		for(j = i+1; j < MAX_ARRAY_SIZE; j++)
+		for(j = i+1; j < MAX_ARRAY_SIZE; j++) // 주어진 배열 중 최소값을 찾아 최소값을 저장 + 최소값 인덱스 저장
 		{
 			if (min > a[j])
 			{
@@ -176,7 +176,7 @@ int selectionSort(int *a)
 				minindex = j;
 			}
 		}
-		a[minindex] = a[i];
+		a[minindex] = a[i]; // 최소값을 앞으로 보낸다
 		a[i] = min;
 	}
 
@@ -185,47 +185,47 @@ int selectionSort(int *a)
 	return 0;
 }
 
-int insertionSort(int *a)
+int insertionSort(int *a) // 삽입정렬
 {
 	int i, j, t;
 
 	printf("Insertion Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); // 정렬 하기 전에 프린트
 
-	for(i = 1; i < MAX_ARRAY_SIZE; i++)
+	for(i = 1; i < MAX_ARRAY_SIZE; i++) // 두번 째 원소부터 비교 시작
 	{
-		t = a[i];
+		t = a[i]; // 변수 t에 a[i]값 저장
 		j = i;
-		while (a[j-1] > t && j > 0)
+		while (a[j-1] > t && j > 0) // t의 값보다 a[j-1]값이 크고 j가 0보다 크다는 조건문 실행
 		{
-			a[j] = a[j-1];
-			j--;
+			a[j] = a[j-1]; // 오른쪽으로 한칸 이동
+			j--; // j의 값 감소
 		}
-		a[j] = t;
+		a[j] = t; // a[j] 값에 t 값 대입
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 프린트
 
 	return 0;
 }
 
-int bubbleSort(int *a)
+int bubbleSort(int *a) // 버블 정렬
 {
 	int i, j, t;
 
 	printf("Bubble Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); // 정렬 하기 전에 프린트
 
 	for(i = 0; i < MAX_ARRAY_SIZE; i++)
 	{
-		for (j = 0; j < MAX_ARRAY_SIZE; j++)
+		for (j = 0; j < MAX_ARRAY_SIZE; j++) // 이중 반복문을 이용하여 최댓값을 제일 뒤로 보낸다
 		{
-			if (a[j-1] > a[j])
+			if (a[j-1] > a[j]) // a[j-1] 값이 a[j]보다 크다면 조건문을 실행하여 교환
 			{
 				t = a[j-1];
 				a[j-1] = a[j];
@@ -235,7 +235,7 @@ int bubbleSort(int *a)
 	}
 
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 프린트
 
 	return 0;
 }
