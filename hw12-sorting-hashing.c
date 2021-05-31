@@ -30,7 +30,7 @@ int search(int *ht, int key);
 
 int main()
 {
-	printf("[----- [민선홍] [2018038028] -----]");
+	printf("[----- [민선홍] [2018038028] -----]\n");
 	char command;
 	int *array = NULL;
 	int *hashtable = NULL;
