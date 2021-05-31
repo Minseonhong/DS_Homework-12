@@ -240,24 +240,24 @@ int bubbleSort(int *a) // 버블 정렬
 	return 0;
 }
 
-int shellSort(int *a)
+int shellSort(int *a) // 셀 정렬
 {
 	int i, j, k, h, v;
 
 	printf("Shell Sort: \n");
 	printf("----------------------------------------------------------------\n");
 
-	printArray(a);
+	printArray(a); //  정렬 하기 전 프린트
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2) // 2로 계속 나누면서 0보다 클 때 까지 반복
 	{
-		for (i = 0; i < h; i++)
+		for (i = 0; i < h; i++) // h 간격에 있는 원소들을 삽입정렬
 		{
-			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
+			for(j = i + h; j < MAX_ARRAY_SIZE; j += h) // 간격 만큼 떨어진 원소들을 그룹으로 묶음
 			{
 				v = a[j];
 				k = j;
-				while (k > h-1 && a[k-h] > v)
+				while (k > h-1 && a[k-h] > v) // 묶인 그룹 내에서 정렬
 				{
 					a[k] = a[k-h];
 					k -= h;
@@ -267,36 +267,36 @@ int shellSort(int *a)
 		}
 	}
 	printf("----------------------------------------------------------------\n");
-	printArray(a);
+	printArray(a); // 정렬 후 프린트
 
 	return 0;
 }
 
-int quickSort(int *a, int n)
+int quickSort(int *a, int n) // 퀵 정렬
 {
-	int v, t;
-	int i, j;
+	int v, t; // v : 기준값
+	int i, j; // i : 기준값보다 작은 부분 j : 기준값보다 큰 부분
 
-	if (n > 1)
+	if (n > 1) // 원소의 개수가 1보다 크면
 	{
-		v = a[n-1];
-		i = -1;
-		j = n - 1;
+		v = a[n-1]; // v에 마지막원소 대입
+		i = -1; // i 값에 -1 대입
+		j = n - 1; // j 값에 마지막 인덱스 대입
 
 		while(1)
 		{
-			while(a[++i] < v);
-			while(a[--j] > v);
+			while(a[++i] < v); // a[i]가 v보다 더 작으면 한칸 증가
+			while(a[--j] > v); // a[j]가 v보다 더 크면 한칸 감소
 
-			if (i >= j) break;
+			if (i >= j) break; // a[i]와 a[j]의 값 교환
 			t = a[i];
 			a[i] = a[j];
 			a[j] = t;
-		}
+		} // a[i]와 a[j]의 값 교환
 		t = a[i];
 		a[i] = a[n-1];
 		a[n-1] = t;
-
+//분할 정렬
 		quickSort(a, i);
 		quickSort(a+i+1, n-i-1);
 	}
@@ -306,7 +306,7 @@ int quickSort(int *a, int n)
 }
 
 int hashCode(int key) {
-   return key % MAX_HASH_TABLE_SIZE;
+   return key % MAX_HASH_TABLE_SIZE; // key값을 MAX_HASH_TABLE_SIZE에 나눈 나머지를 리턴
 }
 
 int hashing(int *a, int **ht)
@@ -329,31 +329,31 @@ int hashing(int *a, int **ht)
 		printf("hashtable[%d] = %d\n", i, hashtable[i]);
 	*/
 
-	int key = -1;
-	int hashcode = -1;
-	int index = -1;
+	int key = -1; // key의 값 -1로 초기화
+	int hashcode = -1; // hashcode의 값 -1로 초기화
+	int index = -1; // index 값을 -1로 초기화
 	for (int i = 0; i < MAX_ARRAY_SIZE; i++)
 	{
 		key = a[i];
-		hashcode = hashCode(key);
+		hashcode = hashCode(key); // key값 hashcode로 변환
 		/*
 		printf("key = %d, hashcode = %d, hashtable[%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
 		*/
 		if (hashtable[hashcode] == -1)
 		{
-			hashtable[hashcode] = key;
+			hashtable[hashcode] = key; // hashtable에 key 값 저장
 		} else 	{
 
 			index = hashcode;
 
-			while(hashtable[index] != -1)
+			while(hashtable[index] != -1) // hashtable 값이 -1이 아닐 때 까지 반복
 			{
 				index = (++index) % MAX_HASH_TABLE_SIZE;
 				/*
 				printf("index = %d\n", index);
 				*/
 			}
-			hashtable[index] = key;
+			hashtable[index] = key; // hashtable[index]에 key 값 대입
 		}
 	}
 
@@ -362,16 +362,16 @@ int hashing(int *a, int **ht)
 
 int search(int *ht, int key)
 {
-	int index = hashCode(key);
+	int index = hashCode(key); // index에 hashCode(key)값 저장
 
-	if(ht[index] == key)
-		return index;
+	if(ht[index] == key) // ht[index] 와 key 값을 같다면
+		return index; // index 값 반환
 
 	while(ht[++index] != key)
 	{
-		index = index % MAX_HASH_TABLE_SIZE;
+		index = index % MAX_HASH_TABLE_SIZE; // index를 MAX_HASH_TABLE_SIZE를 나눈 나머지 값을 index에 저장
 	}
-	return index;
+	return index; // index 값 반환
 }
 
 
